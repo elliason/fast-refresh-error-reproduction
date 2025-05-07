@@ -4,6 +4,7 @@ import "~/styles/globals.css";
 import { NuqsAdapter } from "nuqs/adapters/next";
 import { Toaster } from "@project/ui/components/toast";
 import LayoutStructure from "./_layout/layout-structure";
+import { Providers } from "~/trpc/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NuqsAdapter>
+        <Providers>
           <LayoutStructure>{children}</LayoutStructure>
-        </NuqsAdapter>
+        </Providers>
+
         <Toaster />
       </body>
     </html>

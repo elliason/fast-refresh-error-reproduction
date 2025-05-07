@@ -16,6 +16,14 @@ services:
     user: "${CURRENT_UID}:${CURRENT_UID}"
     networks:
       - webapp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=webapp"
+      - "traefik.http.routers.${DOCKER_ID}-sandbox.rule=Host(`${APP_FQDN}`)"
+      - "traefik.http.routers.${DOCKER_ID}-sandbox.entrypoints=https"
+      - "traefik.http.routers.${DOCKER_ID}-sandbox.tls=true"
+      - "traefik.http.routers.${DOCKER_ID}-sandbox.tls.certresolver=local"
+      - "traefik.http.services.${DOCKER_ID}-sandbox.loadbalancer.server.port=3000"
 
 networks:
   webapp:

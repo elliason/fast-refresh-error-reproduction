@@ -9,12 +9,15 @@
     "@headlessui/react": "^2.2.2",
     "@project/table": "workspace:*",
     "@project/ui": "workspace:*",
+    "@project/data-grid-table": "workspace:*",
+    "@project/request": "workspace:*",
     "effect": "catalog:effect",
     "lucide-react": "catalog:frontend",
     "next": "catalog:next",
     "nuqs": "catalog:frontend",
     "react": "catalog:frontend",
-    "react-dom": "catalog:frontend"
+    "react-dom": "catalog:frontend",
+    "@tanstack/react-query": "catalog:frontend"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

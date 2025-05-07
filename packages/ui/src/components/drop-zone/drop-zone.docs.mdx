@@ -1,5 +1,5 @@
-import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
-import * as DropZoneStories from './drop-zone.stories';
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from "@storybook/blocks";
+import * as DropZoneStories from "./drop-zone.stories";
 
 <Meta of={DropZoneStories} name="Docs" />
 
@@ -7,7 +7,7 @@ import * as DropZoneStories from './drop-zone.stories';
 <Description />
 
 ```jsx
-import { DropArea, DropedFilesDashboard, DropZone, DropZoneFooter, ErrorMessages } from '#components/drop-zone';
+import { DropArea, DropedFilesDashboard, DropZone, DropZoneFooter, ErrorMessages } from "#components/drop-zone";
 ```
 
 ### DropZone Props & Methods
@@ -36,18 +36,18 @@ import { DropArea, DropedFilesDashboard, DropZone, DropZoneFooter, ErrorMessages
 
 `DropZone` is a wrapper component which wraps the file inputing logic. It has four child components. They are:
 
--   `DropArea`: This component is used to provide a drag and drop area for files to be uploaded. It can have any content inside it.
--   `DropedFilesDashboard`: This component is used to show the files which are uploaded successfully. It shows the file name and a delete button to remove the file. This component is not required to be used, can be replaced by own inplementation.
--   `ErrorMessages`: This component is used to show the error messages if any file upload fails. This component is not required to be used, can be replaced by own inplementation.
--   `DropZoneFooter`: This component is used to show the submit and cancel buttons. This component is not required to be used, can be replaced by own inplementation.
+- `DropArea`: This component is used to provide a drag and drop area for files to be uploaded. It can have any content inside it.
+- `DropedFilesDashboard`: This component is used to show the files which are uploaded successfully. It shows the file name and a delete button to remove the file. This component is not required to be used, can be replaced by own inplementation.
+- `ErrorMessages`: This component is used to show the error messages if any file upload fails. This component is not required to be used, can be replaced by own inplementation.
+- `DropZoneFooter`: This component is used to show the submit and cancel buttons. This component is not required to be used, can be replaced by own inplementation.
 
 ```jsx
-import { DropArea, DropedFilesDashboard, DropZone, ErrorMessages } from '#components/drop-zone';
+import { DropArea, DropedFilesDashboard, DropZone, ErrorMessages } from "#components/drop-zone";
 
 <DropZone url="mock-endpoint">
-    <DropArea>Any content can be placed here</DropArea>
-    <DropedFilesDashboard />
-    <ErrorMessages />
+  <DropArea>Any content can be placed here</DropArea>
+  <DropedFilesDashboard />
+  <ErrorMessages />
 </DropZone>;
 ```
 
@@ -67,7 +67,7 @@ The input value of the parameter is an object in the following format `accept = 
 
 By providing `validator` prop you can specify custom validation for files.
 
-The value must be a function that accepts `File` object and returns `null` if file should be accepted or error object/array of error objects `type DropZoneFilesError` exported from `@mf/ui/components/drop-zone` if file should be rejected.
+The value must be a function that accepts `File` object and returns `null` if file should be accepted or error object/array of error objects `type DropZoneFilesError` exported from `@project/ui/components/drop-zone` if file should be rejected.
 
 <Source of={DropZoneStories.CustomValidation} />
 

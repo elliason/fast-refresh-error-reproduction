@@ -1,0 +1,74 @@
+{
+  "name": "@project/data-grid-table",
+  "version": "0.0.11",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@gitlab.mediafactory.dev:20222/mf/platform/frontend-platform.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist"
+  ],
+  "exports": {
+    "./client": "./dist/client/index.js",
+    "./server": "./dist/server/index.js",
+    "./shared": "./dist/shared/index.js",
+    "./client/*": "./dist/client/*.js",
+    "./client/rendering/*": "./dist/client/rendering/*.js",
+    "./client/rendering/cell-content-types/*": "./dist/client/rendering/cell-content-types/*.js",
+    "./server/*": "./dist/server/*.js",
+    "./shared/*": "./dist/shared/*.js",
+    "./shared/data/*": "./dist/shared/data/*.js",
+    "./shared/definition/*": "./dist/shared/definition/*.js"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean:dist": "rm -rf dist",
+    "clean:packages": "rm -rf node_modules",
+    "dev": "tsc -b --watch",
+    "lint:ts": "tsc --noEmit",
+    "lint": "pnpm lint:ts"
+  },
+  "dependencies": {
+    "radix-ui": "catalog:frontend",
+    "@tanstack/react-table": "catalog:frontend",
+    "@project/table": "workspace:*",
+    "lucide-react": "catalog:frontend",
+    "@project/ui": "workspace:*",
+    "@project/request": "workspace:*",
+    "react-hook-form": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "catalog:frontend",
+    "@types/react": "catalog:frontend",
+    "@types/react-dom": "catalog:frontend",
+    "effect": "catalog:effect",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend",
+    "react-hook-form": "catalog:frontend"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "catalog:frontend",
+    "@types/react": "catalog:frontend",
+    "@types/react-dom": "catalog:frontend",
+    "effect": "catalog:effect",
+    "nuqs": "catalog:frontend",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "registry": "https://gitlab.mediafactory.dev/api/v4/projects/7/packages/npm/"
+  }
+}

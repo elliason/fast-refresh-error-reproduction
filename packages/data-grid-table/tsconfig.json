@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    /** Tells TypeScript to emit .d.ts files. This is needed so that libraries can get autocomplete on the .js files you're creating. */
+    "declaration": true,
+    /** Tells TypeScript to emit source maps and declaration maps. These are needed so that when consumers of your libraries are debugging, they can jump to the original source code using go-to-definition. */
+    "sourceMap": true,
+    "declarationMap": true,
+    "jsx": "react-jsx",
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "noImplicitAny": false,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -4,12 +4,12 @@ import type { GridDefinition } from "./definition.js";
 import type { FiltersDefinition } from "../../filtering/shared/filters-definition.js";
 import { capitalize } from "effect/String";
 
-export const createRequestParams = <ActualFiltersDefinition extends FiltersDefinition = FiltersDefinition>({
+export const createRequestParams = ({
   state,
   definition,
 }: {
   state: GridState;
-  definition: GridDefinition<ActualFiltersDefinition>;
+  definition: GridDefinition;
 }): RequestParams => {
   const { filtersState, paginationState, sortingState } = state;
 

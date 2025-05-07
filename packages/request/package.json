@@ -1,0 +1,44 @@
+{
+  "name": "@project/request",
+  "version": "0.0.2",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@gitlab.mediafactory.dev:20222/mf/platform/frontend-platform.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist"
+  ],
+  "exports": {
+    "./server": "./dist/server/index.js",
+    "./client": "./dist/client/index.js",
+    "./shared": "./dist/shared/index.js",
+    "./shared/*": "./dist/shared/*.js",
+    "./shared/lib/*": "./dist/shared/lib/*.js",
+    "./shared/errors/*": "./dist/shared/errors/*.js"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean:dist": "rm -rf dist",
+    "clean:packages": "rm -rf node_modules",
+    "dev": "tsc -b --watch"
+  },
+  "dependencies": {
+    "tsafe": "catalog:types",
+    "ts-essentials": "catalog:types",
+    "openapi-fetch": "catalog:utils"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:backend"
+  },
+  "peerDependencies": {
+    "effect": "catalog:effect"
+  },
+  "publishConfig": {
+    "registry": "https://gitlab.mediafactory.dev/api/v4/projects/7/packages/npm/"
+  }
+}

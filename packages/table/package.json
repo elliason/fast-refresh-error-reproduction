@@ -10,10 +10,26 @@
     "./dist"
   ],
   "exports": {
+    "./server": "./dist/server/index.js",
     "./client": "./dist/client/index.js",
     "./shared": "./dist/shared/index.js",
+    "./shared/lib/*": "./dist/shared/lib/*.js",
+    "./client/components/*": "./dist/client/components/*.js",
     "./client/hooks/*": "./dist/client/hooks/*.js",
-    "./client/components/*": "./dist/client/components/*.js"
+    "./client/state/*": "./dist/client/state/*.js",
+    "./client/data/*": "./dist/client/data/*.js",
+    "./pagination/server/*": "./dist/pagination/server/*.js",
+    "./pagination/client/*": "./dist/pagination/client/*.js",
+    "./pagination/shared/*": "./dist/pagination/shared/*.js",
+    "./filtering/server/*": "./dist/filtering/server/*.js",
+    "./filtering/client/*": "./dist/filtering/client/*.js",
+    "./filtering/shared/*": "./dist/filtering/shared/*.js",
+    "./sorting/server/*": "./dist/sorting/server/*.js",
+    "./sorting/client/*": "./dist/sorting/client/*.js",
+    "./sorting/shared/*": "./dist/sorting/shared/*.js",
+    "./actions/server/*": "./dist/actions/server/*.js",
+    "./actions/client/*": "./dist/actions/client/*.js",
+    "./actions/shared/*": "./dist/actions/shared/*.js"
   },
   "scripts": {
     "build": "tsc -b",
@@ -21,7 +37,11 @@
     "clean:packages": "rm -rf node_modules",
     "dev": "tsc -b --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@project/ui": "workspace:*",
+    "@project/request": "workspace:*",
+    "lucide-react": "catalog:frontend"
+  },
   "devDependencies": {
     "@types/node": "catalog:backend"
   },
@@ -31,7 +51,8 @@
     "react": "catalog:frontend",
     "react-dom": "catalog:frontend",
     "@types/react": "catalog:frontend",
-    "@types/react-dom": "catalog:frontend"
+    "@types/react-dom": "catalog:frontend",
+    "@tanstack/react-query": "catalog:frontend"
   },
   "publishConfig": {
     "registry": "https://gitlab.mediafactory.dev/api/v4/projects/7/packages/npm/"
