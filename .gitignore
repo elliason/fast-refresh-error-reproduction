@@ -1,0 +1,42 @@
+### Project ###
+.docker/.env.npm
+.docker/.env.application
+.docker/.env.ads-transparency-tool
+.docker/docker-compose.override.yaml
+
+### APP ###
+node_modules
+.npm_cache
+.pnpm-store
+.pnpm
+.turbo
+dist
+.next
+*.tsbuildinfo
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+
+*storybook.log
+
+# generated content
+.contentlayer
+.content-collections
+.source

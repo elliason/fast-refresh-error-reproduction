@@ -1,0 +1,39 @@
+{
+  "name": "@project/table",
+  "version": "0.0.1",
+  "description": "",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist"
+  ],
+  "exports": {
+    "./client": "./dist/client/index.js",
+    "./shared": "./dist/shared/index.js",
+    "./client/hooks/*": "./dist/client/hooks/*.js",
+    "./client/components/*": "./dist/client/components/*.js"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean:dist": "rm -rf dist",
+    "clean:packages": "rm -rf node_modules",
+    "dev": "tsc -b --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "catalog:backend"
+  },
+  "peerDependencies": {
+    "nuqs": "catalog:frontend",
+    "effect": "catalog:effect",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend",
+    "@types/react": "catalog:frontend",
+    "@types/react-dom": "catalog:frontend"
+  },
+  "publishConfig": {
+    "registry": "https://gitlab.mediafactory.dev/api/v4/projects/7/packages/npm/"
+  }
+}

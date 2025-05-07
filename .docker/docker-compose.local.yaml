@@ -1,0 +1,20 @@
+services:
+  app:
+    profiles:
+      - all
+      - app
+    image: ${NODE_IMAGE}
+    working_dir: ${APP_DIR}
+    command: ["pnpm", "run", "dev"]
+    env_file:
+      - "./.env.application"
+    volumes:
+      - ../.:${APP_DIR}
+      - $HOME/.npmrc:/.npmrc
+    ports:
+      - "3000:3000"
+    user: "${CURRENT_UID}:${CURRENT_UID}"
+
+networks:
+  webapp:
+    external: true

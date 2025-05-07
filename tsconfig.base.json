@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    /* -- Basics -- */
+    /** Helps mend a few of the fences between CommonJS and ES Modules. */
+    "esModuleInterop": true,
+    /** Skips checking the types of .d.ts files. This is important for performance, because otherwise all node_modules will be checked. */
+    "skipLibCheck": true,
+    /** The version of JavaScript you're targeting. */
+    "target": "es2022",
+    /** Allows for the use of JavaScript files. */
+    "allowJs": true,
+    /** Allows for the use of .json files. */
+    "resolveJsonModule": true,
+    /** This option forces TypeScript to consider all files as modules. This helps to avoid 'cannot redeclare block-scoped variable' errors. */
+    "moduleDetection": "force",
+    /** This option prevents a few TS features which are unsafe when treating modules as isolated files. */
+    "isolatedModules": true,
+    /** This option forces you to use import type and export type, leading to more predictable behavior and fewer unnecessary imports.
+     * With module: NodeNext, it also enforces you're using the correct import syntax for ESM or CJS. */
+    "verbatimModuleSyntax": true,
+    /** Tells TypeScript what module syntax to use. */
+    "module": "NodeNext",
+    /** Tells TypeScript what built-in types to include. es2022 is the best option for stability. */
+    "lib": ["ESNext"],
+    /** Ensures that if properties are optional, they should not be defined at all.
+            Makes difference between setting a variable to undefined and not setting it at all.
+            ```
+            interface UserDefaults {
+                // The absence of a value represents 'system'
+                colorThemeOverride?: "dark" | "light";
+            }
+
+            const settings = getUserSettings();
+            settings.colorThemeOverride = "dark";
+            settings.colorThemeOverride = "light";
+            
+            // But not:
+            settings.colorThemeOverride = undefined;
+            Type 'undefined' is not assignable to type '"dark" | "light"' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the type of the target.
+        
+            Its helpful if using effect schema, viz: https://effect.website/docs/schema/introduction/#exactoptionalpropertytypes
+        */
+    // TODO: enable this rule and solve the errors
+    // "exactOptionalPropertyTypes": true,
+
+    /* -- Strictness & Linting -- */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "allowArbitraryExtensions": true,
+
+    /* No obsolete rules */
+    "erasableSyntaxOnly": true
+  }
+}

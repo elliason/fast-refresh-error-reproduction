@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+scriptPath="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+rootPath="$(dirname "${scriptPath}")"
+dockerPath="${rootPath}/.docker"
+dockerEnvPath="${dockerPath}/.env.docker"
+applicationEnvPath="${dockerPath}/.env.application"
+
+CURRENT_UID=$(id -u)
+CURRENT_GID=$(id -g)
+
+source "${dockerEnvPath}"
+
+docker run -it --rm -v "${rootPath}:/${APP_DIR}" -w /${APP_DIR} ${NODE_IMAGE} bash

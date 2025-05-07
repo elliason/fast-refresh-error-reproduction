@@ -1,0 +1,29 @@
+{
+  "name": "@project/ui",
+  "version": "0.0.1",
+  "description": "",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean:dist": "rm -rf dist",
+    "clean:packages": "rm -rf node_modules",
+    "dev": "tsc -b --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "catalog:backend"
+  },
+  "peerDependencies": {
+    "nuqs": "catalog:frontend",
+    "effect": "catalog:effect"
+  },
+  "publishConfig": {
+    "registry": "https://gitlab.mediafactory.dev/api/v4/projects/7/packages/npm/"
+  }
+}

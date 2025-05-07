@@ -1,0 +1,29 @@
+{
+  "name": "@project/app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo"
+  },
+  "dependencies": {
+    "next": "catalog:next",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend",
+    "effect": "catalog:effect",
+    "lucide-react": "catalog:frontend",
+    "nuqs": "catalog:frontend",
+    "@project/table": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:types",
+    "@eslint/eslintrc": "^3",
+    "@types/node": "catalog:backend",
+    "@types/react": "catalog:frontend",
+    "@types/react-dom": "catalog:frontend",
+    "eslint": "catalog:lint",
+    "eslint-config-next": "catalog:lint",
+    "postcss": "catalog:build",
+    "tailwindcss": "catalog:build",
+    "@tailwindcss/postcss": "catalog:build"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@mf/frontend-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Set of tools for frontend web development for Media Factory CZ",
+  "keywords": [
+    "Media factory",
+    "frontend",
+    "platform",
+    "react",
+    "typescript",
+    "storybook",
+    "eslint",
+    "prettier",
+    "turbo"
+  ],
+  "author": "Media Factory CZ",
+  "type": "module",
+  "scripts": {
+    "build": "turbo run build --env-mode=loose",
+    "dev": "turbo run dev --env-mode=loose",
+    "lint": "turbo run lint --env-mode=loose",
+    "format": "turbo run format --env-mode=loose",
+    "test": "turbo run test --env-mode=loose",
+    "start": "turbo run start --env-mode=loose"
+  },
+  "dependencies": {
+    "turbo": "2.4.4",
+    "typescript": "catalog:types"
+  },
+  "packageManager": "pnpm@9.5.0"
+}

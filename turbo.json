@@ -1,0 +1,55 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "globalEnv": ["MF_NPM_TOKEN"],
+    "tasks": {
+        "lint": {
+            "outputs": [],
+            "dependsOn": []
+        },
+        "lint:ts": {
+            "outputs": [],
+            "dependsOn": []
+        },
+        "test": {
+            "outputs": [
+                "coverage/**",
+                ".vitest/report/**",
+                ".playwright/report/**",
+                ".playwright/__snapshots__/**",
+                ".playwright-ct/__snapshots__/**",
+                ".playwright-ct/report/**"
+            ],
+            "dependsOn": ["^lint"]
+        },
+        "build": {
+            "outputs": ["dist/**", ".next/**"],
+            "dependsOn": ["^build"],
+            "env": ["JWT_KEYSTORE_PASSWORD"]
+        },
+        "start": {
+            "cache": false,
+            "persistent": true,
+            "dependsOn": ["build"]
+        },
+        "dev": {
+            "outputs": ["dist/**", ".next/**", ".source/**"],
+            "cache": false,
+            "persistent": true,
+            "env": ["JWT_KEYSTORE_PASSWORD"]
+        },
+        "dev:storybook": {
+            "cache": false,
+            "persistent": true,
+            "env": ["JWT_KEYSTORE_PASSWORD"]
+        },
+        "clean:packages": {
+            "cache": false
+        },
+        "clean:dist": {
+            "cache": false
+        },
+        "clean:tsbuildinfo": {
+            "cache": false
+        }
+    }
+}

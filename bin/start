@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+scriptPath="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+rootPath="$(dirname "${scriptPath}")"
+dockerPath="${rootPath}/.docker"
+dockerEnvPath="${dockerPath}/.env.docker"
+applicationEnvPath="${dockerPath}/.env.application"
+
+CURRENT_UID=$(id -u)
+CURRENT_GID=$(id -g)
+
+source "${dockerEnvPath}"
+
+PROFILE=$1
+if [[ -z "$PROFILE" ]]; then
+    PROFILE=all
+fi
+
+if [[ ! -f "${dockerPath}/docker-compose.$RUNENV.yaml" ]]; then
+  echo "File docker-compose.$RUNENV.yaml not found."
+  exit 1
+fi
+
+ARGS="--profile ${PROFILE} --env-file ${dockerEnvPath} --env-file ${applicationEnvPath} -p ${PROJECT_NAME}-${MODULE_NAME} -f ${dockerPath}/docker-compose.$RUNENV.yaml"
+
+CURRENT_UID=$CURRENT_UID CURRENT_GID=$CURRENT_GID docker compose ${ARGS} up -d --build --quiet-pull
