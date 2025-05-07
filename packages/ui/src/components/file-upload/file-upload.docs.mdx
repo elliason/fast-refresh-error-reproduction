@@ -1,0 +1,47 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as FileUploadStories from './file-upload.stories';
+
+<Meta of={FileUploadStories} name="Docs" />
+
+<Title />
+<Description />
+
+File upload is an xtension of DropZone component. Sharing the same props except `url`, `onUploadAccepted` and `onUploadRejected`. When uploading a file via FileUpload the file constraints are first checked on DropZone side, then on the server side. If the file is successfuly dropped on both sides, it is added to the list of uploaded files and confirmation callback is called. Therefore the upload request is called immediately after the files are passed to the input. For sending files to the endpoint after a submit it is advised to use DropZone component and implement custom file sending logic in its `onSubmitted` callback.
+
+```jsx
+import { DropArea, DropedFilesDashboard, ErrorMessages, FileUpload } from '#components/file-upload';
+```
+
+### FileUpload Props & Methods
+
+FileUpload props are the extension of DropZone component props. Bellow mentioned are only the props which are an addition native to FileUpload. For broader description props please refer to DropZone documentation.
+
+<Markdown>{`
+| Prop name      | Type       | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------- | ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| url            | string     |          | URL of the REST API endpoint to which the components sends POST or DELETE request to add or remove files.                                                                                                                                                                                                                                                                                                               |
+| onUploadAccepted | func       |          | Callback for when some of the files are uploaded successfully. Note that if no files are uploaded successfully, this callback is not invoked. This callback build on top of its DropZone implementation and is not called when no files are accepted by DropZone before upload to API is even called.                                                                                                                                                                                                                                                                                                              |
+| onUploadRejected | func       |          | Callback for when some of the files upload fails. Note that if all files are uploaded successfully, this callback is not invoked. This callback build on top of its DropZone implementation and is not called when all files are accepted by DropZone before upload to API is even called.                                                                                                                                                                                                                                                                                                              |
+`}</Markdown>
+
+### Usage
+
+`FileUpload` is a wrapper component which wraps the file upload process. It has three child components. They are:
+
+-   `DropArea`: This component is used to provide a drag and drop area for files to be uploaded. It can have any content inside it.
+-   `DropedFilesDashboard`: This component is used to show the files which are uploaded successfully. It shows the file name and a delete button to remove the file. This component is not required to be used, can be replaced by own inplementation.
+-   `ErrorMessages`: This component is used to show the error messages if any file upload fails. This component is not required to be used, can be replaced by own inplementation.
+
+```jsx
+import { DropArea, DropedFilesDashboard, ErrorMessages, FileUpload } from '#components/file-upload';
+
+<FileUpload url="mock-endpoint">
+    <DropArea>Any content can be placed here</DropArea>
+    <DropedFilesDashboard />
+    <ErrorMessages />
+</FileUpload>;
+```
+
+### Default example
+
+<Canvas of={FileUploadStories.Default} />

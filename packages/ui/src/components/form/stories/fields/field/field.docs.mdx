@@ -1,0 +1,30 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as FieldStories from './field.stories';
+
+<Meta of={FieldStories} name="Docs" />
+
+<Title />
+<Description />
+
+### Field component
+The base children of the Form component are  Field, Message.
+Field component has context for all other form components. It provides the form context to the children components. It also provides the error message for the field.
+### Field props
+<Markdown>{`
+| Prop name           | Type                                     | Default        | Description                                                                              |
+| ------------------- | ---------------------------------------- | -------------- | ---------------------------------------------------------------------------------------- |
+| name                | string                                   |                | is a name that is registered in the form                                                 |
+| serverInvalid       | boolean                                  | false          | flag to mark the field as invalid due to server-side validation. Defaults to false. this add to the context|
+`}</Markdown>
+
+### Basic Example
+```jsx
+<Form>
+    <Field name="name" serverInvalid={server.response.data.isInvalid} >
+        <Label>Name</Label>
+        <FlexibleInput required />
+        <Message match="required">You must enter your name!</Message>
+    </Field>
+    <Button type='submit'>Submit</Button>
+</Form>
+```

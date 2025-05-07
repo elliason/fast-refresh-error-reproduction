@@ -1,0 +1,34 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as MessageStories from './message.stories';
+
+<Meta of={MessageStories} name="Docs" />
+
+<Title />
+<Description />
+
+### Message component
+The `FieldMessage` component is used to display validation messages for a specific form field. It listens to validation rules applied to the `Input` component and shows the appropriate error message based on the validation status.
+
+### Message props
+<Markdown>{`
+
+| Prop name    | Type                                     | Default       | Description                                                                                           |
+| ------------ | ---------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------- |
+| match        | string                                         |               | The type of validation error to match. Supports custom matchers for custom validation rules.           |
+| forceMatch   | boolean                                  | false         | Forces the message to be displayed, useful for server-side validation.                                 |
+| name         | string                                   |               | Specifies the field name if rendering outside the Field context.                                      |
+| data-testid  | string                                   | 'field-message' | Used for testing purposes to target the message component.                                             |
+| asChild      | boolean                                  | false         | Renders the message as a child component, replacing the default wrapper element.                        |
+`}</Markdown>
+
+### Basic Example
+```jsx
+<Form>
+    <Field name="age">
+        <FlexibleInput min max />
+        <Message match="min">Your value is to small!</Message>
+        <Message match="max">Your value is to big!</Message>
+    </Field>
+    <Button type='submit'>Submit</Button>
+</Form>
+```

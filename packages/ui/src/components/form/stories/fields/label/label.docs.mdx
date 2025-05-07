@@ -1,0 +1,30 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as LabelStories from './label.stories';
+
+<Meta of={LabelStories} name="Docs" />
+
+<Title />
+<Description />
+
+### Label component
+The Label component is used to render a label for a form field. It works with the FieldContext and can be customized with additional props. It also provides contextual information about field validity and binds the label to the appropriate form element.
+
+### Label props
+<Markdown>{`
+| Prop name           | Type                                     | Default            | Description                                                                                     |
+| ------------------- | ---------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------- |
+| className           | string                                   |                    | Additional CSS classes for styling the label.                                                    |
+| data-testid         | string                                   |  field-label       | Test ID attribute for testing purposes.                                                         |
+| ref                 | React.Ref                                |                    | Reference for the label element.                                                                |
+| htmlFor             | string                                   | Automatically set  | The ID of the form field the label is bound to. If not provided, it is auto-populated.           |
+`}</Markdown>
+
+### Basic Example
+```jsx
+<Form>
+    <Field name="username">
+        <Label className="text-blue-500">Username</FieldLabel>
+        <FlexibleInput type="text" required />
+    </Field>
+    <Button type="submit">Submit</Button>
+</Form>

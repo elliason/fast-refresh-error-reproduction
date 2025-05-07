@@ -1,0 +1,84 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as DropZoneStories from './drop-zone.stories';
+
+<Meta of={DropZoneStories} name="Docs" />
+
+<Title />
+<Description />
+
+```jsx
+import { DropArea, DropedFilesDashboard, DropZone, DropZoneFooter, ErrorMessages } from '#components/drop-zone';
+```
+
+### DropZone Props & Methods
+
+<Markdown>{`
+| Prop name      | Type       | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------- | ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| files          | File[]     |          | Controlled value for internal state of successfully droped files.                                                                                                                                                                                                                                                                                                                            |
+| errorMessages  | string[]   |          | Controlled value for internal state of error messages.                                                                                                                                                                                                                                                                                                                                    |
+| accept         | {string[]} |          | Set accepted file types. Checkout [https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker](https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker) types option for more information. Keep in mind that mime type determination is not reliable across platforms. CSV files, for example, are reported as text/plain under macOS but as application/vnd.ms-excel under Windows. |
+| disabled       | boolean    | false    | Enable/disable the dropzone                                                                                                                                                                                                                                                                                                                                                                                             |
+| maxFiles       | number     | 0        | Maximum accepted number of files. The default value is 0 which means there is no limitation to how many files are accepted.                                                                                                                                                                                                                                                                                             |
+| maxSize        | number     | Infinity | Maximum file size (in bytes).                                                                                                                                                                                                                                                                                                                                                                                           |
+| minSize        | number     | 0        | Minimum file size (in bytes).                                                                                                                                                                                                                                                                                                                                                                                           |
+| onError        | func       |          | Callback for when there's some error from any of the promises. Arguments: error: error                                                                                                                                                                                                                                                                                                                                  |
+| validator      | func       | null     | Custom validation function. It must return null if there's no errors. Arguments: file: File Returns (FileError or FileError[] or null). For more info go to [Custom Validation story](#custom-validation)                                                                                                                                                                                                                                                                            |
+| onDrop         | func       |          | Callback for when the drop event occurs. Files are accepted or rejected based on the accept, multiple, minSize and maxSize props. Note that the onDrop callback will always be invoked regardless if the dropped files were accepted or rejected. If you'd like to react to a specific scenario, use the onDropAccepted/onDropRejected props.                                                                           |
+| onRemove       | func       |          | Callback for when the file is removed.                                                                                                     |
+| onDropAccepted | func       |          | Callback for when the drop event occurs. Note that if no files are accepted, this callback is not invoked.                                                                                                                                                                                                                                                                                                              |
+| onDropRejected | func       |          | Callback for when the drop event occurs. Note that if no files are rejected, this callback is not invoked.                                                                                                                                                                                                                                                                                                              |
+| onSubmitted    | func       |          | Callback for when the submit on the submit button occurs. OnSubmitted provide you with an array of File objects which you can then process and send to a server.                                                                                                                                                                                                                                                        |
+| onCanceled     | func       |          | Callback for when the cancel occurs. If it's not provided, remove all selected files.                                                                                                                                                                                                                                                                                                                                   |
+`}</Markdown>
+
+### Usage
+
+`DropZone` is a wrapper component which wraps the file inputing logic. It has four child components. They are:
+
+-   `DropArea`: This component is used to provide a drag and drop area for files to be uploaded. It can have any content inside it.
+-   `DropedFilesDashboard`: This component is used to show the files which are uploaded successfully. It shows the file name and a delete button to remove the file. This component is not required to be used, can be replaced by own inplementation.
+-   `ErrorMessages`: This component is used to show the error messages if any file upload fails. This component is not required to be used, can be replaced by own inplementation.
+-   `DropZoneFooter`: This component is used to show the submit and cancel buttons. This component is not required to be used, can be replaced by own inplementation.
+
+```jsx
+import { DropArea, DropedFilesDashboard, DropZone, ErrorMessages } from '#components/drop-zone';
+
+<DropZone url="mock-endpoint">
+    <DropArea>Any content can be placed here</DropArea>
+    <DropedFilesDashboard />
+    <ErrorMessages />
+</DropZone>;
+```
+
+### Default example
+
+<Canvas of={DropZoneStories.Default} />
+
+### Accept Only Specific Types Of Files
+
+The `accept` parameter is used to specify what type of file the user can upload.
+
+The input value of the parameter is an object in the following format `accept = { 'image/png': ['.png'] }`.
+
+<Canvas of={DropZoneStories.AcceptOnlySpecificTypesOfFiles} />
+
+### Custom Validation
+
+By providing `validator` prop you can specify custom validation for files.
+
+The value must be a function that accepts `File` object and returns `null` if file should be accepted or error object/array of error objects `type DropZoneFilesError` exported from `@mf/ui/components/drop-zone` if file should be rejected.
+
+<Source of={DropZoneStories.CustomValidation} />
+
+### ErrorMessages component
+
+The `DropZone` component provides a basic way to display errors. The `ErrorMessages` component is used for this purpose and is always used as a `child` of the `DropZone` component. The `DropZone` itself passes the `ErrorMessages` component the information to display.
+
+If you want to take advantage of the custom error management options, see the example below.
+
+### Custom error
+
+Sample custom error message for when the user uploads a file larger than 1 bytes. The `onDropRejected` props was used for the sample, which receives a callback function `(files) => setRejectedFiles(files)`, which causes the program to receive an error message field. These notifications are then rendered by the `Toaster` component and by using `useToast()` hook.
+
+<Canvas of={DropZoneStories.CustomErrorHandling} />

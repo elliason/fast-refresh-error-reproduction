@@ -1,0 +1,312 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Stories, Title } from '@storybook/blocks';
+import * as AutocompleteStories from './autocomplete.stories';
+
+<Meta of={AutocompleteStories} name="Docs" />
+
+<Title />
+<Description />
+
+## Usage 
+
+This package provides components and hooks which are used in several other components which fit more specific needs. 
+* `AutocompleteInput` - text field with a popover with suggestions to fill in the field (use case: search field)
+* `AutocompleteSelect` - a select with the ability to search for options online or locally (use case: picking one value from options provided from API or locally defined array)
+* `AutocompleteMultiselect` - a multi-select component with the ability to search for options (use case: picking multiple values from options provided from API or locally defined array)
+
+## Hooks
+
+### `useAutocompleteState`
+
+This hook manages the complete state (query, value and open state + debouncing) and debounced state for autocomplete hooks.
+
+#### Props
+
+<Markdown>{`
+| Prop      | Type   | Default | Description                                        |
+| --------- | ------ | ------- | -------------------------------------------------- |
+| \`delay\` | number | \`200\` | Delay in milliseconds for debouncing the input.    |
+| \`deps\`  | array  | \`[]\`  | Dependency array to optionaly be debounced. |
+`}</Markdown>
+
+#### Returns
+
+<Markdown>{`
+| Return Value     | Type     | Description                                    |
+| ---------------- | -------- | ---------------------------------------------- |
+| \`query\`        | string   | The current query for searching options.                 |
+| \`setQuery\`     | function | Setter function for the query state.           |
+| \`value\`        | T        | The current real value.                    |
+| \`setValue\`     | function | Setter function for the value state.           |
+| \`open\`         | boolean  | The current open state for the optional dropdown.        |
+| \`setOpen\`      | function | Setter function for the open state.            |
+| \`debouncedValue\` | T      | The debounced value of the selected option.    |
+| \`debouncedQuery\` | string | The debounced query input value.               |
+| \`debouncedOpen\`  | boolean| The debounced open state of the dropdown.      |
+| \`debouncedDeps\`  | array  | The debounced dependencies passed to the hook. |
+`}</Markdown>
+
+#### Example
+
+```jsx
+const { query, setQuery, value, setValue, open, setOpen, debouncedValue, debouncedQuery, debouncedOpen } =
+    useAutocompleteState(200);
+```
+
+---
+
+### `useAutocomplete`
+
+This hook manages either fetching options from an API or filtering them from a provided array after a debounce. The choice is made by passing either `getOptionsURL` or `options` prop. It uses `useAutocompleteState` and both `useFetchAutocompleteOptions` and `useFilterAutocompleteOptions` hooks.
+
+#### Props
+<Markdown>{`
+| Prop             | Type     | Description                                                |
+| ---------------- | -------- | ---------------------------------------------------------- |
+| \`getOptionsURL\` | string   | URL to fetch options from.                                 |
+| \`isAllowed\`     | function | Callback to determine if the fetch request should be made. |
+| \`options\`       | array    | Array of options to filter from.                           |
+| \`filterOptions\` | function | Callback to filter options from the array.                 |
+| \`delay\`         | number   | Debounce delay in milliseconds.                            |
+| \`deps\`          | array    | Dependency array for memoizing the filtered options.       |
+`}</Markdown>
+
+#### Returns
+<Markdown>{`
+| Return Value | Type     | Description                                                |
+| ------------ | -------- | ---------------------------------------------------------- |
+| \`query\`    | string   | The current query input value.                             |
+| \`setQuery\` | function | Setter function for the query state.                       |
+| \`value\`    | T        | The current selected value.                                |
+| \`setValue\` | function | Setter function for the value state.                       |
+| \`open\`     | boolean  | The current open state of the dropdown.                    |
+| \`setOpen\`  | function | Setter function for the open state.                        |
+| \`options\`  | array    | The options either fetched or filtered based on the input. |
+| \`error\`    | unknown  | Error object if fetching fails.                            |
+| \`deps\`     | array    | The dependencies array passed to the hook.                 |
+`}</Markdown>
+
+#### Example
+
+```jsx
+//online 
+const { query, setQuery, options, error, value, setValue, open, setOpen } = useAutocomplete({
+    getOptionsURL: 'options',
+    isAllowed: ({ options, query, error, value, open }) => value !== query,
+});
+
+//offline 
+const { query, setQuery, options, value, setValue, open, setOpen } = useAutocomplete({
+    options: [{ value: 'option1' }, { value: 'option2' }],
+    isAllowed: ({ options, query, error, value, open }) => value !== query,
+});
+```
+
+---
+
+### `useAutocompleteOnline`
+
+This hook only fetches options from an API after a debounce and manages the state of the fetched options and other states via `useAutocompleteState`.
+
+#### Props
+<Markdown>{`
+| Prop             | Type     | Description                                                |
+| ---------------- | -------- | ---------------------------------------------------------- |
+| \`getOptionsURL\` | string   | URL to fetch options from.                                 |
+| \`isAllowed\`     | function | Callback to determine if the fetch request should be made. |
+| \`delay\`         | number   | Debounce delay in milliseconds.                            |
+| \`deps\`          | array    | Dependency array for memoizing the fetch options.          |
+`}</Markdown>
+
+#### Returns
+<Markdown>{`
+| Return Value | Type     | Description                             |
+| ------------ | -------- | --------------------------------------- |
+| \`query\`    | string   | The current query input value.          |
+| \`setQuery\` | function | Setter function for the query state.    |
+| \`value\`    | T        | The current selected value.             |
+| \`setValue\` | function | Setter function for the value state.    |
+| \`open\`     | boolean  | The current open state of the dropdown. |
+| \`setOpen\`  | function | Setter function for the open state.     |
+| \`options\`  | array    | The options fetched from the API.       |
+| \`error\`    | unknown  | Error object if fetching fails.         |
+`}</Markdown>
+
+#### Example
+
+```jsx
+const { query, setQuery, options, error, value, setValue, open, setOpen } = useAutocompleteOnline({
+    getOptionsURL: 'api/options',
+    isAllowed: ({ query, open }) => query.length > 2 && open, //fetching only if the dropdown is open and query is a certain length
+    delay: 300,
+});
+```
+
+---
+
+### `useAutocompleteOffline`
+
+This hook only filters options from the provided options array after a debounce and manages the state of the filtered options and other states via `useAutocompleteState`.
+
+#### Props
+<Markdown>{`
+| Prop             | Type     | Description                                                   |
+| ---------------- | -------- | ------------------------------------------------------------- |
+| \`options\`       | array    | Array of options to filter from.                              |
+| \`filterOptions\` | function | Callback to filter options from the array.                    |
+| \`delay\`         | number   | Debounce delay in milliseconds.                               |
+| \`isAllowed\`     | function | Callback to determine if the filter operation should proceed. |
+| \`deps\`          | array    | Dependency array for memoizing the filtered options.          |
+`}</Markdown>
+
+#### Returns
+<Markdown>{`
+| Return Value | Type     | Description                                    |
+| ------------ | -------- | ---------------------------------------------- |
+| \`query\`    | string   | The current query input value.                 |
+| \`setQuery\` | function | Setter function for the query state.           |
+| \`value\`    | T        | The current selected value.                    |
+| \`setValue\` | function | Setter function for the value state.           |
+| \`open\`     | boolean  | The current open state of the dropdown.        |
+| \`setOpen\`  | function | Setter function for the open state.            |
+| \`options\`  | array    | The options filtered based on the input query. |
+`}</Markdown>
+
+#### Example
+
+```jsx
+const { query, setQuery, options, value, setValue, open, setOpen } = useAutocompleteOffline({
+    options: [{ value: 'option1' }, { value: 'option2' }],
+    filterOptions: (query, options) => options.filter((option) => option.value.includes(query)),
+    delay: 100,
+});
+```
+
+---
+
+### `useFetchAutocompleteOptions`
+
+This hook fetches options from an API, provides a callback for disabling the fetch request, and handles fetch aborting. It does not in itself hold a query state or implement debouncing logic. This hook is to be used in combination witn `useAutocompleteState` or custom implementation of state management and debouncing. 
+
+#### Props
+<Markdown>{`
+| Prop             | Type     | Description                                                |
+| ---------------- | -------- | ---------------------------------------------------------- |
+| \`query\`         | string   | The current query input value.                             |
+| \`open\`          | boolean  | The current open state of the dropdown.                    |
+| \`value\`         | T        | The current selected value.                                |
+| \`getOptionsURL\` | string   | URL to fetch options from.                                 |
+| \`isAllowed\`     | function | Callback to determine if the fetch request should be made. |
+| \`deps\`          | array    | Dependency array for memoizing the fetch options.          |
+`}</Markdown>
+
+#### Returns
+<Markdown>{`
+| Return Value | Type    | Description                       |
+| ------------ | ------- | --------------------------------- |
+| \`options\`  | array   | The options fetched from the API. |
+| \`error\`    | unknown | Error object if fetching fails.   |
+`}</Markdown>
+
+#### Example
+
+```jsx
+const { options, error } = useFetchAutocompleteOptions({
+    getOptionsURL: 'api/options',
+    query: 'opt',
+    isAllowed: ({ query, open }) => query.length > 2 && open,
+});
+```
+
+---
+
+### `useFilterAutocompleteOptions`
+
+This hook filters options from the provided array based on the input query and callback for filtering. It does not in itself hold a query state or implement debouncing logic. This hook is to be used in combination witn `useAutocompleteState` or custom implementation of state management and debouncing. 
+
+#### Props
+<Markdown>{`
+| Prop             | Type     | Description                                                   |
+| ---------------- | -------- | ------------------------------------------------------------- |
+| \`options\`       | array    | Array of options to filter from.                              |
+| \`query\`         | string   | The current query input value.                                |
+| \`value\`         | T        | The current selected value.                    |
+| \`open\`          | boolean  | The current open state of the dropdown.                       |
+| \`filterOptions\` | function | Callback to filter options based on the query.                |
+| \`isAllowed\`     | function | Callback to determine if the filter operation should proceed. |
+| \`deps\`          | array    | Dependency array for memoizing the filtered options.          |
+`}</Markdown>
+
+#### Returns
+<Markdown>{`
+| Return Value | Type     | Description                                    |
+| ------------ | -------- | ---------------------------------------------- |
+| \`options\`  | array    | The filtered options based on the input query. |
+`}</Markdown>
+
+#### Example
+
+```jsx
+const { options } = useFilterAutocompleteOptions({
+    options: [{ value: 'option1' }, { value: 'option2' }],
+    query: 'opt',
+    filterOptions: (query, options) => options.filter((option) => option.value.includes(query)),
+});
+```
+
+## Components
+
+Autocomplete components are the default components to be used in combination with autocomplete hooks. However autocomplete functionality does not require usage of these components, they can be either overriden with different behavior or swapped entirely.
+
+### `Autocomplete`
+
+The root component that wraps the `Popover` and `Command` components. It manages the overall structure and basic behavior of the autocomplete component.
+
+### `AutocompleteTrigger`
+
+This is a trigger component that opens the autocomplete popover.
+
+### `AutocompleteInput`
+
+The input component used inside the autocomplete. It is styled and wrapped in the `CommandInput`.
+
+### `AutocompleteContent`
+
+The content wrapper for the dropdown. It uses the `PopoverContent` component and customizes its behavior.
+
+### `AutocompleteList`
+
+This is a wrapper for the list of autocomplete items, based on the `CommandList` component.
+
+### `AutocompleteItem`
+
+This is a component for each item in the autocomplete list, based on the `CommandItem` component.
+
+### `AutocompleteEmpty`
+
+A component that displays a message when the autocomplete list is empty, based on the `CommandEmpty` component.
+
+---
+
+### Example usage
+
+```tsx
+<Autocomplete open={open} onOpenChange={setOpen}>
+    <AutocompleteTrigger asChild>
+        <AutocompleteInput value={query} onValueChange={setQuery} />
+    </AutocompleteTrigger>
+    <AutocompleteContent>
+        <AutocompleteList>
+            {options?.map((option) => (
+                <AutocompleteItem key={option} value={option} onSelect={setValueAndClose}>
+                    {option}
+                </AutocompleteItem>
+            ))}
+            <AutocompleteEmpty>Start typing</AutocompleteEmpty>
+        </AutocompleteList>
+    </AutocompleteContent>
+</Autocomplete>
+```
+
+
+<Controls />
+<Stories />

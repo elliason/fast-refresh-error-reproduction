@@ -1,0 +1,41 @@
+import { Canvas, Controls, Description, Meta, Primary, Stories, Title } from '@storybook/blocks';
+import * as ToastStories from './toast.stories';
+
+<Meta of={ToastStories} name="Docs" />
+
+<Title />
+<Description />
+[shadcn/ui API references](https://ui.shadcn.com/docs/components/toast)
+
+```jsx
+import { ToastAction, ToastClose } from '#components/toast';
+import { Toaster } from './toaster';
+import { useToast } from './use-toast';
+```
+
+This module contains the following components:
+
+-   `ToastAction` a component for rendering an action button within a toast.
+-   `ToastClose` a component for rendering a close button within a toast.
+-   `Toaster` a component for toasters rendering.
+-   `useToast` a custom hook that provides functionality for displaying toast notifications.
+
+#### Note
+
+Only one `Toast` component is ever displayed on the page. The documentation on this page provides four examples of using this component. When activated, `Toast` appears for all components on the page that use it. This is a specific behavior only here in Storybook.
+
+### Default
+
+<Canvas of={ToastStories.Default} />
+
+### With Title
+
+<Canvas of={ToastStories.WithTitle} />
+
+### With Action
+
+<Canvas of={ToastStories.WithAction} />
+
+### Destructive
+
+<Canvas of={ToastStories.Destructive} />

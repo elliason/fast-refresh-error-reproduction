@@ -1,0 +1,64 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as ArrayFieldStories from './array-field.stories';
+
+<Meta title="Components/ArrayField" component={ArrayFieldStories.default} />
+
+# ArrayField Component
+
+The `ArrayField` component is used for rendering an array of form fields. It needs to be wrapped within a `Form` or `FormControlled` component that provides context via `useFormContext`.
+
+## Usage
+
+
+The `ArrayField` component allows you to dynamically render a list of fields, such as inputs for items in an array. It leverages `react-hook-form`'s `useFieldArray` to manage the state of these fields.
+
+### ArrayField Props & Methods
+<Markdown>{`
+| Prop name      | Type                                                         | Default              | Description                                                                                                                                                                                                                                                                              |
+| -------------- | ------------------------------------------------------------ | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| render         | (props: { field, index, array, form, fieldPath, ActionButton }) => JSX.Element |                      | A function that returns the JSX to render each field in the array. The function receives an object with field data, index, array helpers, form context, field path, and an ActionButton for adding/removing rows.                                                                          |
+| children       | React.ReactNode                                              |                      | Optional children elements to be rendered after the fields.                                                                                                                                                                                                                              |
+| arrayPath      | ArrayPath<FormValues>                                        |                      | The path to the array field within the form values. This is used to locate and manage the array of fields in the form.                                                                                                                                                                   |
+| wrapperProps   | React.HTMLProps<HTMLDivElement>                              |                      | Optional props to apply to the wrapper <div> element. These props can include styles, classes, or other HTML attributes.                                                                                                                                                                |
+| variant        | 'buttons' or 'textLine'                                      | buttons          | Design type of the ArrayField. When set to textLine, the add new row button appears as inline text.                                                                                                                                                                                |
+| buttonText     | string                                                       | Přidat další řádek | Customizable text for the "Add New Row" button. This is applicable when the variant is set to 'textLine'.                                                                                                                                                                            |
+| defaultValues  | FieldArray<FormValues, ArrayPath<FormValues>>                |                      | Default values for a new row of fields. When a new row is added, these values will be pre-filled in the form.                                                                                                                                                                            |
+| constraints    | ArrayFieldConstraint<FormValues>[]                           |                      | Optional constraints to enforce rules on the fields (now just a value can be used only once). Each constraint includes the type, value, and the path of the field to which the constraint applies.                                                                                    |
+`}</Markdown>
+
+### Constraints prop
+Currently, the ArrayField component supports only the onlyOnce constraint. This constraint ensures that if a user attempts to add a defined value (e.g., a specific text or state) more than once in the form, the previous occurrence of that value will automatically be overwritten with an empty value. This guarantees that the value can only exist once within the array field.
+### Example Usage
+
+Here's an example of how you might use the `ArrayField` component in your form:
+
+```jsx
+<Form onSubmit={(values) => { console.log('submit'); console.log(values); }}>
+    <ArrayField
+            arrayPath="pets.dogs"
+            defaultValues={{ name: '', isVaccinated: false }}
+            variant="textLine"
+            constraints={[
+              { type: 'onlyOnce', value: 'Max', path: 'name' },
+              { type: 'onlyOnce', value: false, path: 'isVaccinated' },
+            ]}
+            render={({ fieldPath, ActionButton }) => (
+              <div className="flex gap-4">
+                <Field name={`${fieldPath}.name`}>
+                  <Label>Pet Name</Label>
+                  <FlexibleInput required placeholder="Enter pet name" />
+                  <Description>The name "Max" can only be used once.</Description>
+                </Field>
+
+                <Field name={`${fieldPath}.isVaccinated`}>
+                  <Label>Vaccinated</Label>
+                  <Switch />
+                  <Description>Can only be set to false once.</Description>
+                </Field>
+
+                {ActionButton}
+              </div>
+            )}
+          />
+</Form>
+```

@@ -1,0 +1,95 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as FormStories from './form.stories';
+
+<Meta of={FormStories} name="Docs" />
+
+<Title />
+<Description />
+
+```jsx
+import {
+    ArrayField,
+    Checkbox,
+    Description,
+    Field,
+    Form,
+    Input,
+    Label,
+    Message,
+    MultiSelect,
+    MultiSelectContent,
+    MultiSelectInput,
+    MultiSelectItem,
+    MultiSelectList,
+    MultiSelectTrigger,
+    RadioGroup,
+    RadioGroupItem,
+    RadioGroupRow,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+    Switch,
+    Toggle,
+    ToggleGroup,
+} from '#components/form';
+```
+
+### Form component
+
+Form component is a wrapper for the form elements. It provides a way to manage form state and validation. It uses the react-hook-form library under the hood.
+
+### Form usage example
+
+```jsx
+<Form>
+    <Field name="name">
+        <Label>Name</Label>
+        <FlexibleInput required /> // if you want use required validation you can use required prop and add same to Message
+        component
+        <Message match="required">You must enter your name!</Message>
+    </Field>
+    <Button type="submit">Submit</Button>
+</Form>
+```
+
+### FormControlled usage example
+
+```jsx
+import { useForm } from 'react-hook-form';
+
+export const Page = () => {
+    // you can use your own hook form and customize it
+    const form = useForm();
+    return (
+        <FormControlled form={form}>
+            <Field name="name">
+                <Label>Name</Label>
+                <FlexibleInput required /> // if you want use required validation you can use required prop and add same
+                to Message component
+                <Message match="required">You must enter your name!</Message>
+            </Field>
+            <Button type="submit">Submit</Button>
+        </FormControlled>
+    );
+};
+```
+
+### Form Props & Methods
+
+<Markdown>{`
+| Prop name           | Type                                     | Default        | Description                                                                              |
+| ------------------- | ---------------------------------------- | -------------- | ---------------------------------------------------------------------------------------- |
+| defaultValues       | DefaultValues                            |                | Default values for the form fields                                                       |
+| onClearServerErrors | () => void                               |                | Function to clear server errors before submitting                                        |
+| action              | ((payload: FormData) => void) or string  |                | Action to be performed when the form is submitted                                        |
+| onSubmit            | SubmitHandler                            |                | Function called when the form is submitted                                               |
+| form                | UseFormReturn                            | undefined      | Instance of the form returned by useForm from react-hook-form                        |
+| DevTool             | React.ComponentType<typeof DevTool>      | undefined      | Displays the React Hook Form DevTool                                                     |
+| children            | ReactNode                                |                | The children elements of the form                                                        |
+`}</Markdown>
+
+### Default example
+
+<Canvas of={FormStories.FormWithValidation} />

@@ -1,0 +1,85 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Stories, Title } from '@storybook/blocks';
+import * as InputStories from './input.stories';
+
+<Meta of={InputStories} name="Docs" />
+<Title />
+
+<Description />
+
+<Controls />
+
+## Default
+
+<Canvas of={InputStories.Default} />
+
+### With Prefix
+
+<Canvas of={InputStories.WithPrefix} />
+
+### With Suffix
+
+<Canvas of={InputStories.WithSuffix} />
+
+### With Prefix and Suffix
+
+<Canvas of={InputStories.WithPrefixAndSuffix} />
+
+## Clearable Input
+
+### Uncontrolled Clearable
+
+<Canvas of={InputStories.UncontrolledClearable} />
+
+### Controlled Clearable
+
+<Canvas of={InputStories.ControlledClearable} />
+
+### Custom Clearable Element
+
+<Canvas of={InputStories.CustomClearableElement} />
+
+#### Clearable Input Props & Methods
+
+<Markdown>{`
+| Prop Name           | Type         | Default | Description                                                                 |
+| ------------------- | ------------ | ------- | --------------------------------------------------------------------------- |
+| onClear             | () => void   |         | Callback function that is called when the clear action is triggered.        |
+| isClearable         | boolean      | true    | Determines if the input field is clearable.                                 |
+| forceIsClearable    | boolean      |         | Forces the input to be clearable regardless of its content or other states. |
+| customClearButton   | ReactElement |         | A custom component to replace the default clear button.                     |                   |                                                                                                                                                                                                                                                                                                                               |
+`}</Markdown>
+
+## Input with mask
+
+The `InputWithMask` component uses **Maskito** for handling custom input formatting, such as number formats, dates, and other patterns.
+
+<Canvas of={InputStories.WithCustomOnlyNumberMask} />
+
+#### Input With Mask Props & Methods
+
+<Markdown>{`
+| Prop name     | Type                                  | Default | Description                                                                                     |
+| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| maskOptions   | MaskitoOptions                        |         | Maskito configuration for controlling the input behavior, such as allowed characters and rules.  |
+| props      | ComponentPropsWithRef<'input'>        |         | All standard HTML input props such as placeholder, type, value, etc.                            |
+`}</Markdown>
+
+## Autocomplete Input
+
+The `AutocompleteInput` fetches completion suggestions from given URL and displays them in a popover menu navigable by cursor
+or keyboard arrows. `offlineSuggestions` is used as a fallback when `getSuggestionsURL` is not defined.
+
+### Online
+
+<Canvas of={InputStories.Autocomplete} />
+
+### Offline
+
+<Canvas of={InputStories.AutocompleteOffline} />
+
+<Markdown>{`
+| Prop Name           | Type                                          | Default | Description                                                                 |
+| ------------------- | --------------------------------------------- | ------- | --------------------------------------------------------------------------- |
+| getSuggestionsURL   | string                                        |         | URL from which data will be fetched to provide suggestions.                 |
+| offlineSuggestions  | string[]                                      |         | An array of suggestions that are used when \`getSuggestionsURL\` is not defined. |
+`}</Markdown>

@@ -1,0 +1,21 @@
+import * as ColorStories from './colors.stories';
+import { Canvas, Meta, Title, Primary, Controls, Stories, Description } from '@storybook/blocks';
+
+<Meta of={ColorStories} name="Docs" />
+
+<Title />
+<Description />
+> *Example:*
+- **text-primary** gives you **text in primary color**,
+- **bg-warning** gives you **element with background in warning color**.
+
+**Foreground colors are meant to be used on top of the base color!**
+
+For additional subtle styling **use shades** of primary, secondary, tertiary, destructive, warning and success colors with Tailwind's opacity feature.
+
+> *Example:*
+- **bg-primary/10** gives you **primary color with 10% opacity.**
+
+Always check for color contrast accessibility!
+
+<Primary />

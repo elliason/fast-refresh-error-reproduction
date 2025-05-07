@@ -1,0 +1,55 @@
+import { Meta, Story, Canvas, Markdown } from '@storybook/blocks';
+import { TimePicker } from './time-picker';
+
+<Meta
+  title="Components/TimePicker"
+  component={TimePicker}
+  parameters={{
+    docs: {
+      description: {
+        component:
+          'The `TimePicker` component allows users to select a specific time. It uses the Ant Design TimePicker component internally, while ensuring compatibility with standard `Date` objects.',
+      },
+    },
+  }}
+/>
+
+# TimePicker
+
+The `TimePicker` component provides a user-friendly interface for selecting hours and minutes. It is built on top of the Ant Design `TimePicker`, with support for handling `Date` objects.
+
+## Props
+
+<Markdown>{`
+| Prop name            | Type                        | Default                | Description                                                                                                                                      |
+| -------------------- | --------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| value                | Date or null                   |                        | The currently selected time. If null, no time is selected.                                                                                       |
+| onChange             | (time: Date or  null) => void|                        | Callback function triggered when the user selects a time. It returns the selected time as a JavaScript Date object or null.                       |
+| onBlur               | () => void                  |                        | Optional callback triggered when the input field loses focus.                                                                                     |
+| className            | string                      |                        | Optional class name for applying custom styles to the time picker component.                                                                     |
+`}</Markdown>
+
+
+
+## Usage
+
+The `TimePicker` allows users to select a time using an interactive interface. Below is an example showing how to use the component with state management in React:
+
+```tsx
+import { useState } from 'react';
+import { TimePicker } from './time-picker';
+
+function MyComponent() {
+  const [selectedTime, setSelectedTime] = useState<Date | null>(null);
+
+  return (
+    <div>
+      <TimePicker
+        value={selectedTime}
+        onChange={setSelectedTime}
+        className="w-10 bg-red-600"
+      />
+      <p>Selected Time: {selectedTime?.toLocaleTimeString() || 'None'}</p>
+    </div>
+  );
+}

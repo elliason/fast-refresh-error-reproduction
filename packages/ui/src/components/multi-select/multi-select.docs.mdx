@@ -1,0 +1,52 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Stories, Title } from '@storybook/blocks';
+import * as MultiSelectStories from './multi-select.stories';
+
+<Meta of={MultiSelectStories} name="Docs" />
+
+<Title />
+<Description />
+
+```jsx
+import {
+    MultiSelect,
+    MultiSelectContent,
+    MultiSelectInput,
+    MultiSelectItem,
+    MultiSelectList,
+    MultiSelectTrigger,
+} from '#components/multi-select';
+```
+
+<Controls />
+<Canvas of={MultiSelectStories.Default} />
+
+---
+
+# Autocomplete Multi-Select
+
+Autocomplete Select fetches its options from defined API endpoint and presents them for the user to select.
+
+```jsx
+import { AutocompletemultiSelect } from '#components/multi-select';
+```
+
+<Markdown>{`
+| Prop Name           | Type                                | Default            | Description                                                                                                                                          |
+| ------------------- | ----------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| \`getOptionsURL\`   | \`string\`                              |                    | URL from which data will be fetched to provide options.                 |
+| \`options\`         | \`string[]\`                            |                    | An array of options that can be used used when \`getOptionsURL\` is not defined. |
+| \`values\`           | \`string[]\`                       |                    | Values passed to controled multi-select.                                                                                          |
+| \`onValuesChange\`   | \`(vals: string[]) => void\`       |                    | Callback function triggered when the selected values change.                                                                                          |
+`}</Markdown>
+
+## Autocomplete Default
+
+In default props configuration Autocomplete select fetches its options after open or after a search string changes.
+
+<Canvas of={MultiSelectStories.AutocompleteDefault} />
+
+## Autocomplete Offline
+
+Autocomplete multi-select with locally defined options
+
+<Canvas of={MultiSelectStories.AutocompleteOffline} />

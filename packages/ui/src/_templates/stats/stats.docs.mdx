@@ -1,0 +1,23 @@
+import { Canvas, Controls, Meta, Primary, Stories, Title } from '@storybook/blocks';
+import * as StatsStories from './stats.stories';
+
+<Meta of={StatsStories} name="Docs" />
+
+<Title />
+
+### With Trending
+
+```jsx
+no import needed
+```
+
+<Canvas of={StatsStories.WithTrending} />
+
+### In Cards
+
+```jsx
+import { TextLink } from '@mf/ui/components/text';
+import { ArrowDown, ArrowUp, MailOpen, MousePointerClick, Users } from 'lucide-react';
+```
+
+<Canvas of={StatsStories.InCards} />

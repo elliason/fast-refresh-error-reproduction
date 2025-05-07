@@ -1,0 +1,29 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as DescriptionComponent from './description.stories';
+
+<Meta of={DescriptionComponent} name="Docs" />
+
+<Title />
+<Description />
+
+### Description component
+The FieldDescription component must be used inside the FieldContext. It provides a description or additional information for a form field.
+
+### Description props
+<Markdown>{`
+| Prop name           | Type                                     | Default               | Description                                                                              |
+| ------------------- | ---------------------------------------- | --------------------- | ---------------------------------------------------------------------------------------- |
+| className           | string                                   |                       | Additional CSS classes for styling the description text.                                 |
+| data-testid         | string                                   | field-description     | Test ID attribute for testing purposes.                                                  |
+| ref                 | React.Ref                                |                       | Reference for the paragraph element.                                                     |
+`}</Markdown>
+
+### Basic Example
+```jsx
+<Form>
+    <Field name="email">
+        <FlexibleInput type="email" required />
+        <Description>This is a required field for login.</FieldDescription>
+    </Field>
+    <Button type="submit">Submit</Button>
+</Form>

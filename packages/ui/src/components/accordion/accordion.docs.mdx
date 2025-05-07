@@ -1,0 +1,22 @@
+import { Canvas, Controls, Meta, Primary, Stories, Title } from '@storybook/blocks';
+import * as AccordionStories from './accordion.stories';
+
+<Meta of={AccordionStories} name="Docs" />
+
+<Title />
+[RadixUI API references](https://www.radix-ui.com/primitives/docs/components/accordion)
+
+```jsx
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '#components/accordion';
+```
+
+### Default expanded value
+
+During initial rendering, it is possible to specify which of the items will be displayed expanded. This is determined by the `defaultValue` tag placed on the Accordion component.
+
+For `type="single"` is defaultValue defined as a string `defaultValue="value-1"`.
+
+In case of `type="multiple"`id dafultValue defined as a string[] `defaultValue={["item-1", "item-2"]}`
+
+<Controls />
+<Stories />

@@ -1,0 +1,75 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Source, Stories, Title } from '@storybook/blocks';
+import * as DatePickerStories from './date-picker.stories';
+
+<Meta of={DatePickerStories} name="Docs" />
+
+<Title />
+<Description />
+
+## Overview
+The `DatePicker` component is a versatile and user-friendly way to allow users to select dates in your application. It integrates seamlessly with your UI and offers features like customizable button text, locale support, and more.
+
+
+### DatePicker Props & Methods
+
+<Markdown>{`
+| Prop name            | Type          | Default                | Description                                                                                                                                      |
+| -------------------- | ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| shouldCloseOnSelect  | boolean       | true                   | Determines whether the popover should close after a date is selected.                                                                             |
+| buttonProps          | object        |                        | Props passed to the internal Button component.                                                                                                    |
+| Icon                 | ReactNode     |                        | An optional icon component to display inside the button.                                                                                          |
+| forceOpen            | boolean       | false                  | Forces the calendar popover to remain open regardless of user interaction.                                                                        |
+| buttonText           | string        | 'Vyberte si datum'     | The text displayed on the button when no date is selected.                                                                                        |
+| language             | Locale        | cs                     | The locale used for date formatting, default is Czech.                                                                                            |
+| calendarProps        | object        |                        | Additional props passed to the Calendar component, such as date range limits (\`fromDate\`, \`toDate\`).                                          |
+`}</Markdown>
+
+
+### Basic Usage Example
+
+This is the most basic use of the `DatePicker` component. It demonstrates how to render a simple date picker with default settings.
+
+<Canvas of={DatePickerStories.Basic} />
+
+
+### Examples with Date Constraints
+
+The following examples show how to use the `DatePicker` component with specific date constraints, such as allowing only past dates or only future dates.
+
+<Canvas of={DatePickerStories.Past} />
+
+#### Past Dates Only
+
+In this example, the `DatePicker` is configured to allow selection of past dates only. This is useful in scenarios where you want to restrict users from selecting future dates.
+
+<Canvas of={DatePickerStories.Future} />
+
+### Custom Variant
+
+In this example, the `DatePicker` is configured to allow selection of past dates only. This is useful in scenarios where you want to restrict users from selecting future dates.
+
+<Canvas of={DatePickerStories.Custom} />
+## Customization Options
+#### Button Customization
+The `buttonProps` prop allows you to pass custom properties to the button, such as `variant`, `size`, and more. You can also use the `Icon` prop to display a custom icon inside the button.
+
+#### Locale Support
+
+You can easily change the locale used for date formatting by passing a different locale to the `language` prop. The default locale is Czech (`cs`), but you can switch to any other locale supported by `date-fns`.
+
+#### Calendar Customization
+
+The `calendarProps` prop enables you to set additional properties on the calendar component, such as limiting the selectable date range using the `fromDate` and `toDate` props.
+
+## Advanced Features
+
+#### Force Calendar to Stay Open
+
+If you need the calendar popover to stay open regardless of user interactions, you can use the `forceOpen` prop. This is useful in cases where you want the date picker to be persistently visible.
+
+### Conclusion
+
+The `DatePicker` component is a powerful tool for adding date selection functionality to your application. With its wide range of customization options, you can tailor it to fit your specific needs. Whether you need basic date selection or more advanced features like custom icons, locale support, or date range constraints, the `DatePicker` has you covered.
+
+
+

@@ -1,0 +1,46 @@
+import { Canvas, Controls, Description, Markdown, Meta, Primary, Stories, Title } from '@storybook/blocks';
+import * as SelectStories from './select.stories';
+
+<Meta of={SelectStories} name="Docs" />
+
+<Title />
+<Description />
+[RadixUI API references](https://www.radix-ui.com/primitives/docs/components/select){' '}
+
+```jsx
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '#components/select';
+```
+
+<Controls />
+
+## Select Default
+
+<Canvas of={SelectStories.Default} />
+
+# Autocomplete Select
+
+Autocomplete Select fetches its options from defined API endpoint and presents them for the user to select.
+
+```jsx
+import { AutocompleteSelect } from '#components/select';
+```
+
+<Markdown>{`
+| Prop Name           | Type                                | Default            | Description                                                                                                                                          |
+| ------------------- | ----------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| \`getOptionsURL\`   | \`string\`                              |                    | URL from which data will be fetched to provide options.                 |
+| \`options\`         | \`string[]\`                            |                    | An array of options that can be used used when \`getOptionsURL\` is not defined. |
+| \`onValueChanged\`   | \`(newValue) => void\`             |                    | Callback function triggered when the selected value changes.                                                                                          |
+`}</Markdown>
+
+## Autocomplete Default
+
+In default props configuration Autocomplete select fetches its options after a search string changes. After an option is picked the search is disabled and options can no longer be changed.
+
+<Canvas of={SelectStories.AutocompleteDefault} />
+
+## Autocomplete Offline
+
+Autocomplete select with locally defined options
+
+<Canvas of={SelectStories.AutocompleteOffline} />

@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+@source "../../node_modules/@project/ui/dist/**/*.{js,jsx}";
+@source "../../node_modules/@project/table/dist/**/*.{js,jsx}";
+@import "../../node_modules/@project/ui/src/_themes/default/theme.css";

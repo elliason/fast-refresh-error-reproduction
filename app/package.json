@@ -6,17 +6,19 @@
     "dev": "next dev --turbo"
   },
   "dependencies": {
-    "next": "catalog:next",
-    "react": "catalog:frontend",
-    "react-dom": "catalog:frontend",
+    "@headlessui/react": "^2.2.2",
+    "@project/table": "workspace:*",
+    "@project/ui": "workspace:*",
     "effect": "catalog:effect",
     "lucide-react": "catalog:frontend",
+    "next": "catalog:next",
     "nuqs": "catalog:frontend",
-    "@project/table": "workspace:*"
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend"
   },
   "devDependencies": {
-    "typescript": "catalog:types",
     "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "catalog:build",
     "@types/node": "catalog:backend",
     "@types/react": "catalog:frontend",
     "@types/react-dom": "catalog:frontend",
@@ -24,6 +26,6 @@
     "eslint-config-next": "catalog:lint",
     "postcss": "catalog:build",
     "tailwindcss": "catalog:build",
-    "@tailwindcss/postcss": "catalog:build"
+    "typescript": "catalog:types"
   }
 }
