@@ -1,0 +1,4 @@
+- clone
+- run `./bin/run` to open inside container
+- install packages
+- run `./bin/start` (starts dev mode in container)
