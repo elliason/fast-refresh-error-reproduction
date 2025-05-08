@@ -33,6 +33,7 @@ export const getTableData = async ({
 }): Promise<RequestResult<GridTableDataType>> => {
   const paramsAsString = createUrlQueryFromParams(requestParams.query || {});
   try {
+    // const request = await fetch(`https://test.localhost/api/grid-data?${paramsAsString}`);
     const request = await fetch(`http://localhost:3000/api/grid-data?${paramsAsString}`);
     const response = await request.json();
     return { success: true, data: response };
