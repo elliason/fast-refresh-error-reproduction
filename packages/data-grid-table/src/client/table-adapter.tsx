@@ -20,14 +20,16 @@ import type { GridStateManagerReturn } from "@project/table/client/state/state";
 export const TableAdapter = <
   DataType extends GridTableDataTypeWithCountableOffsetPaging | GridTableDataTypeWithOffsetPaging
 >({
-  query,
+  data,
+  isFetching,
   definition,
   debug = false,
   renderers,
   classNameModifiers,
   state,
 }: {
-  query: DataLoaderResult<DataType> | DataLoaderTrpcResult<DataType>;
+  isFetching: boolean;
+  data: DataType;
   definition: TableGridDefinition;
   debug?: boolean;
   renderers?: TableGridProps["renderers"];
@@ -37,8 +39,6 @@ export const TableAdapter = <
   const { filtersState, sortingState, paginationState, setFiltersState, setSortingState, setPaginationState } = state;
 
   const { ColumnHeader: ColumnHeaderRenderer = ColumnHeader } = renderers ?? {};
-
-  const { data, isFetching } = query;
 
   const columnsDef: ColumnDef<Row>[] = definition.render.columns.map((column) => {
     return {
@@ -100,13 +100,12 @@ export const TableAdapter = <
 
   const table = useReactTable({
     columns: columnsDef,
-    data: data && data.success ? [...data.data.items] : [],
-    rowCount:
-      data && data.success
-        ? data.data.paging?.type === "COUNTABLE_OFFSET"
-          ? data.data.paging.totalItems ?? undefined
-          : undefined
-        : undefined,
+    data: data ? [...data.items] : [],
+    rowCount: data
+      ? data.paging?.type === "COUNTABLE_OFFSET"
+        ? data.paging.totalItems ?? undefined
+        : undefined
+      : undefined,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,

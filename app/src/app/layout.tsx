@@ -4,7 +4,7 @@ import "~/styles/globals.css";
 import { NuqsAdapter } from "nuqs/adapters/next";
 import { Toaster } from "@project/ui/components/toast";
 import LayoutStructure from "./_layout/layout-structure";
-import { Providers } from "~/trpc/providers";
+import { Providers } from "~/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

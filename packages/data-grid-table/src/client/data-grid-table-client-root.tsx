@@ -84,6 +84,10 @@ export const DataGridTableClientRoot = ({
                 return <DataError title="Failed to load data!" description={query.data.error.message} />;
               }
 
+              if (!query.data) {
+                return <DataError title="Failed to load data!" description="No data" />;
+              }
+
               return (
                 <>
                   {definition.filters && (
@@ -101,7 +105,8 @@ export const DataGridTableClientRoot = ({
                     />
                   )}
                   <TableAdapter<GridTableDataType>
-                    query={query}
+                    isFetching={query.isFetching}
+                    data={query.data.data}
                     definition={definition}
                     renderers={renderers}
                     classNameModifiers={classNameModifiers}

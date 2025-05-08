@@ -8,12 +8,13 @@ export const DataGridTableServerRoot = async ({ renderers = {}, ...rest }: Table
   const { debug = false, id, definitionFetcherFn } = rest;
   const { DefinitionLoadingFallback } = renderers;
 
-  const gridDefinitionRequest = definitionFetcherFn({ debug, id });
+  const gridDefinitionRequest = await definitionFetcherFn({ debug, id });
 
   return (
     <Suspense fallback={DefinitionLoadingFallback ? <DefinitionLoadingFallback /> : <div>Loading...</div>}>
       <DataGridTableClientRoot
-        definitionRequest={gridDefinitionRequest}
+        // definitionRequest={gridDefinitionRequest}
+        definitionResult={gridDefinitionRequest}
         renderers={renderers}
         {...rest}
         id={GridID(id)}
